@@ -9,18 +9,19 @@ public interface PersonService {
 	
 	PersonDto findPersonById(Integer id);
 	
-	PersonDto updatePersonName(Integer id, String name);
-		
-	PersonDto updatePersonAddress(Integer id, AddressDto addressDto);
-	
-	PersonDto deletePerson(Integer id);
-	
-	Iterable<PersonDto> findPersonsByCity(String city);
-	
-	Iterable<PersonDto> findPersonsByAge(Integer minAge, Integer maxAge);
-	
-	Iterable<PersonDto> findPersonsByName(String name);
-	
-	Iterable<CityPopulationDto> getCityPopulation();
+	PersonDto removePerson(Integer id);
+
+    PersonDto updatePersonName(Integer id, String name);
+
+    PersonDto updatePersonAddress(Integer id, AddressDto addressDto);
+
+    PersonDto[] findPersonsByCity(String city);
+
+    PersonDto[] findPersonsByName(String name);
+
+    PersonDto[] findPersonsBetweenAge(Integer minAge, Integer maxAge);
+
+    Iterable<CityPopulationDto> getCitiesPopulation();
+
 
 }
