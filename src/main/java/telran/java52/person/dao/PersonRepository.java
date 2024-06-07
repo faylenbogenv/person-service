@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import telran.java52.person.dto.CityPopulationDto;
+import telran.java52.person.model.Child;
+import telran.java52.person.model.Employee;
 import telran.java52.person.model.Person;
 
 public interface PersonRepository extends JpaRepository<Person, Integer> {
@@ -21,5 +23,12 @@ public interface PersonRepository extends JpaRepository<Person, Integer> {
 	
 	@Query("select new telran.java52.person.dto.CityPopulationDto(p.address.city, count(p)) from Person p group by p.address.city order by count(p) desc")
 	List<CityPopulationDto> getCitiesPopulation();
+	
+	@Query("select c from Child c")
+	List<Child> findAllChildren();
+	
+	@Query("select e from Employee e where e.salary between :minSalary and :maxSalary")
+	List<Employee> findEmployeesBySalary(@Param("minSalary") int minSalary, @Param("maxSalary") int maxSalary);
+	
 
 }

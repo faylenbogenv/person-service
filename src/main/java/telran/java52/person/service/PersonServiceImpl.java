@@ -1,6 +1,7 @@
 package telran.java52.person.service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.CommandLineRunner;
@@ -97,6 +98,23 @@ public class PersonServiceImpl implements PersonService, CommandLineRunner {
 	public Iterable<CityPopulationDto> getCitiesPopulation() {
 		return personRepository.getCitiesPopulation();
 	}
+	
+	@Transactional(readOnly = true)
+	@Override
+	public PersonDto[] findAllChildren() {
+		List<Child> children = personRepository.findAllChildren();
+		return children.stream()
+						.map(c -> mapper.mapToDto(c))
+						.toArray(PersonDto[]::new);
+	}
+
+	@Override
+	public PersonDto[] findEmployeesBySalary(Integer minSalary, Integer maxSalary) {
+		List<Employee> employees = personRepository.findEmployeesBySalary(minSalary, maxSalary);
+		return employees.stream()
+						.map(e -> mapper.mapToDto(e))
+						.toArray(PersonDto[]::new);
+	}
 
 	@Transactional
 	@Override
@@ -114,5 +132,7 @@ public class PersonServiceImpl implements PersonService, CommandLineRunner {
 		}
 
 	}
+
+	
 
 }
