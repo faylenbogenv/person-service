@@ -24,11 +24,11 @@ public interface PersonRepository extends JpaRepository<Person, Integer> {
 	@Query("select new telran.java52.person.dto.CityPopulationDto(p.address.city, count(p)) from Person p group by p.address.city order by count(p) desc")
 	List<CityPopulationDto> getCitiesPopulation();
 	
-	@Query("select c from Child c")
-	List<Child> findAllChildren();
-	
-	@Query("select e from Employee e where e.salary between :minSalary and :maxSalary")
-	List<Employee> findEmployeesBySalary(@Param("minSalary") int minSalary, @Param("maxSalary") int maxSalary);
+//	@Query("select e from Employee e where e.salary between ?1 and ?2")
+	Stream<Employee> findBySalaryBetween(int min, int max);
+
+//	@Query("select c from Child c")
+	Stream<Child> findChildrenBy();
 	
 
 }

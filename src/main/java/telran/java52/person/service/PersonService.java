@@ -1,7 +1,9 @@
 package telran.java52.person.service;
 
 import telran.java52.person.dto.AddressDto;
+import telran.java52.person.dto.ChildDto;
 import telran.java52.person.dto.CityPopulationDto;
+import telran.java52.person.dto.EmployeeDto;
 import telran.java52.person.dto.PersonDto;
 
 public interface PersonService {
@@ -23,9 +25,9 @@ public interface PersonService {
 
     Iterable<CityPopulationDto> getCitiesPopulation();
     
-    PersonDto[] findAllChildren();
-    
-    PersonDto[] findEmployeesBySalary(Integer minSalary, Integer maxSalary);
+    Iterable<EmployeeDto> findEmployeeBySalary(int min, int max);
+
+	Iterable<ChildDto> getChildren();
 
 
 }

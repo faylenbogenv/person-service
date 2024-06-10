@@ -99,21 +99,20 @@ public class PersonServiceImpl implements PersonService, CommandLineRunner {
 		return personRepository.getCitiesPopulation();
 	}
 	
-	@Transactional(readOnly = true)
 	@Override
-	public PersonDto[] findAllChildren() {
-		List<Child> children = personRepository.findAllChildren();
-		return children.stream()
-						.map(c -> mapper.mapToDto(c))
-						.toArray(PersonDto[]::new);
+	@Transactional(readOnly = true)
+	public Iterable<EmployeeDto> findEmployeeBySalary(int min, int max) {
+		return personRepository.findBySalaryBetween(min, max)
+				.map(p -> modelMapper.map(p, EmployeeDto.class))
+				.toList();
 	}
 
 	@Override
-	public PersonDto[] findEmployeesBySalary(Integer minSalary, Integer maxSalary) {
-		List<Employee> employees = personRepository.findEmployeesBySalary(minSalary, maxSalary);
-		return employees.stream()
-						.map(e -> mapper.mapToDto(e))
-						.toArray(PersonDto[]::new);
+	@Transactional(readOnly = true)
+	public Iterable<ChildDto> getChildren() {
+		return personRepository.findChildrenBy()
+				.map(c -> modelMapper.map(c, ChildDto.class))
+				.toList();
 	}
 
 	@Transactional
